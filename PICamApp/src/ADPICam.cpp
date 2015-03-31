@@ -1311,7 +1311,9 @@ void ADPICam::report(FILE *fp, int details) {
                         Picam_GetEnumerationString(enumeratedType,
                                 (int) collectionConstraint->values_array[cc],
                                 &enumerationString);
-                        fprintf(fp, "------ %s\n", enumerationString);
+                        fprintf(fp, "------%f %s\n",
+                                collectionConstraint->values_array[cc],
+                                enumerationString);
                         Picam_DestroyString(enumerationString);
                     }
                     break;
@@ -2748,7 +2750,8 @@ asynStatus ADPICam::piHandleParameterIntegerValueChanged(PicamHandle camera,
             for (int iParam = 0; iParam < constraint->values_count;
                     iParam++) {
                 if (constraint->values_array[iParam] == value) {
-                    setIntegerParam(driverParameter, iParam);
+                    setIntegerParam(driverParameter,
+                            (int)constraint->values_array[iParam]);
                 }
             }
             break;
@@ -3653,7 +3656,7 @@ asynStatus ADPICam::piSetParameterValuesFromSelectedCamera() {
 					return asynError;
 				}
 				error = Picam_GetParameterRoisConstraint(currentCameraHandle,
-						parameterList[ii], PicamConstraintCategory_Capable,
+						parameterList[ii], PicamConstraintCategory_Required,
 						&roiConstraint);
 				if (error != PicamError_None) {
 					Picam_GetEnumerationString(PicamEnumeratedType_Error,
@@ -4844,7 +4847,22 @@ asynStatus ADPICam::piWriteInt32CollectionType(asynUser *pasynUser,
         error = Picam_SetParameterIntegerValue(currentCameraHandle,
                 picamParameter, value);
         if (error != PicamError_None) {
-            //TODO
+            Picam_GetEnumerationString(PicamEnumeratedType_Error,
+                    error,
+                    &errorString);
+            Picam_GetEnumerationString(PicamEnumeratedType_Error,
+                    error,
+                    &paramString);
+            asynPrint(pasynUser, ASYN_TRACE_ERROR,
+                    "%s:%s ERROR: problem setting Parameter value for"
+                    " parameter %s trying to set value to %d. %s\n",
+                    driverName,
+                    __func__,
+                    paramString,
+                    value,
+                    errorString);
+            Picam_DestroyString(paramString);
+            Picam_DestroyString(errorString);
             return asynError;
         }
     }
