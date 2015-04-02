@@ -9,7 +9,7 @@ powershell -command "& { (New-Object Net.Webclient).DownloadFile('http://www.aps
 "downloading synApps"
 powershell -command "& { (New-Object Net.Webclient).DownloadFile('http://www.aps.anl.gov/bcda/synApps/tar/synApps_5_7.tar.gz', 'C:\PICAM\Downloads\synApps_5_7.tar.gz' ) }"
 "downloading asyn update"
-powershell -command "& { (New-Object Net.Webclient).DownloadFile('http://www.aps.anl.gov/epics/download/modules/asyn4-25.tar.gz', 'C:\PICAM\Downloads\asyn4-25.tar.gz' ) }"
+powershell -command "& { (New-Object Net.Webclient).DownloadFile('http://www.aps.anl.gov/epics/download/modules/asyn4-26.tar.gz', 'C:\PICAM\Downloads\asyn4-26.tar.gz' ) }"
 "downloading autosave update"
 powershell -command "& { (New-Object Net.Webclient).DownloadFile('http://www.aps.anl.gov/bcda/synApps/tar/autosave_R5-5.tar.gz', 'C:\PICAM\Downloads\autosave_R5-5.tar.gz' ) }"
 "downloading calc update"
@@ -35,7 +35,7 @@ gzip -d C:\PICAM\Downloads\baseR3.14.12.4.tar.gz
 "uncompressing synApps ..."
 gzip -d C:\PICAM\Downloads\synApps_5_7.tar.gz
 "uncompressing asyn ..."
-gzip -d C:\PICAM\Downloads\asyn4-25.tar.gz
+gzip -d C:\PICAM\Downloads\asyn4-26.tar.gz
 "uncompressing autosave ..."
 gzip -d C:\PICAM\Downloads\autosave_R5-5.tar.gz
 "uncompressing calc ..."
@@ -55,8 +55,8 @@ bsdtar -xf C:\PICAM\Downloads\baseR3.14.12.4.tar
 bsdtar -xf C:\PICAM\Downloads\synApps_5_7.tar
 cd synApps_5_7\support
 "untar asyn ..."
-bsdtar -xf C:\PICAM\Downloads\asyn4-25.tar
-move C:/PICAM/synApps_5_7/support/asyn4-25 C:/PICAM/synApps_5_7/support/asyn-4-25
+bsdtar -xf C:\PICAM\Downloads\asyn4-26.tar
+move C:/PICAM/synApps_5_7/support/asyn4-26 C:/PICAM/synApps_5_7/support/asyn-4-26
 "untar autosave ..."
 bsdtar -xf C:\PICAM\Downloads\autosave_R5-5.tar
 "untar calc ..."
@@ -114,7 +114,7 @@ cd ..
 "Setting 2-0 for areaDetector"
 & 'C:\Program Files (x86)\Git\bin\git.exe' checkout -b R2-0
 "Get ADPICAM"
-& 'C:\Program Files (x86)\Git\bin\git.exe' clone -b "code_review_2015_01_28" --recursive https://github.com/JPHammonds/ADPICAM
+& 'C:\Program Files (x86)\Git\bin\git.exe' clone -b R2.0.1 --recursive https://github.com/JPHammonds/ADPICAM
 cd ..
 
 #Comment out unused synApps modules
@@ -141,11 +141,11 @@ sed.exe -e '/VAC/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/VME/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/XXX/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/STD/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
-sed.exe -e 's/asyn-4-21/asyn-4-25/' -i \PICAM\synApps_5_7\support\configure\RELEASE
+sed.exe -e 's/asyn-4-21/asyn-4-26/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/calc-3-2/calc-3-4-2/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/EPICS_BASE=\/APSshare\/epics\/base-3.14.12.3/EPICS_BASE=C:\/PICAM\/base-3.14.12.4/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/SUPPORT=\/APSshare\/epics\/synApps_5_7\/support/SUPPORT=C:\/PICAM\/synApps_5_7\/support/' -i \PICAM\synApps_5_7\support\configure\RELEASE
-sed.exe -e 's/areaDetector-1-9-1/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\configure\RELEASE
+sed.exe -e 's/areaDetector-2-2/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/autosave-5-1/autosave-5-5/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/busy-1-6/busy-1-6-1/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/sscan-2-9/sscan-2-10/' -i \PICAM\synApps_5_7\support\configure\RELEASE
@@ -153,7 +153,7 @@ sed.exe -e 's/seq-2-1-13/seq-2-1-18/' -i \PICAM\synApps_5_7\support\configure\RE
 sed.exe -e '/ipac-2-12/ s/#//' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/SNCSEQ/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/SNCSEQ/ s/^/#/' -i C:\PICAM\synApps_5_7\support\sscan-2-10\configure\RELEASE
-sed.exe -e '/SNCSEQ/ s/^/#/' -i C:\PICAM\synApps_5_7\support\asyn-4-25\configure\RELEASE
+sed.exe -e '/SNCSEQ/ s/^/#/' -i C:\PICAM\synApps_5_7\support\asyn-4-26\configure\RELEASE
 sed.exe -e '/SNCSEQ/ s/^/#/' -i C:\PICAM\synApps_5_7\support\calc-3-4-2\configure\RELEASE
 sed.exe -e '/DAC128V/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e '/IP=/ s/^/#/' -i \PICAM\synApps_5_7\support\configure\RELEASE
@@ -168,7 +168,7 @@ copy \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\EXAMPLE_RELEASE_P
 #Modify copied Template config files
 "----------------"
 "Modify AreaDetector Template ConfigFile RELEASE_LIBS.local"
-sed.exe -e 's/asyn-4-24/asyn-4-25/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_LIBS.local
+sed.exe -e 's/asyn-4-24/asyn-4-26/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_LIBS.local
 "Modify AreaDetector Template ConfigFile RELEASE_PATHS.local"
 sed.exe -e 's/\/corvette\/home\/epics\/devel/C:\/PICAM\/synApps_5_7\/support/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
 sed.exe -e 's/\/corvette\/usr\/local\/epics/C:\/PICAM/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
