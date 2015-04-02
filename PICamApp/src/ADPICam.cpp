@@ -1897,8 +1897,7 @@ PicamError PIL_CALL ADPICam::piAcquistionUpdated(
 {
     int status = asynSuccess;
     PicamError error = PicamError_None;
-    const char *functionName = "piParameterIntegerValueChanged";
-    //ADPICam_Instance->piSetAcquisitionData(device, available, acqStatus );
+
     status = ADPICam_Instance->piHandleAcquisitionUpdated(device,
             available, acqStatus);
 
@@ -2474,9 +2473,12 @@ asynStatus ADPICam::piHandleAcquisitionUpdated(
         const PicamAvailableData *available,
         const PicamAcquisitionStatus *acqStatus)
 {
-    const char * functionName = "piHandleAcquisitionUpdated";
     int status = asynSuccess;
 
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
+            "%s:%s Enter\n",
+            driverName,
+            __func__);
     dataLock.lock();
     acqStatusRunning = acqStatus->running;
     acqStatusErrors = acqStatus->errors;
@@ -2486,8 +2488,6 @@ asynStatus ADPICam::piHandleAcquisitionUpdated(
             driverName,
             __func__,
             available);
-//    if ( (acqStatusErrors == PicamAcquisitionErrorsMask_None) &&
-//    		acqStatusRunning){
     if (available && available->readout_count){
         acqAvailableInitialReadout = available->initial_readout;
         acqAvailableReadoutCount = available->readout_count;
@@ -2499,6 +2499,10 @@ asynStatus ADPICam::piHandleAcquisitionUpdated(
     }
     dataLock.unlock();
     epicsThreadSleep(0.000002);  // Twice the wait in piHandleNewImages
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
+            "%s:%s Exit\n",
+            driverName,
+            __func__);
 
     return asynSuccess;
 }
@@ -4927,6 +4931,11 @@ void ADPICam::piHandleNewImageTask(void)
 			  return;
 		}
 	}
+	asynPrint( pasynUserSelf, ASYN_TRACE_FLOW,
+	        "%s:%s Starting to handle a new image event\n",
+	        driverName,
+	        __func__);
+
 	newImageTimeoutStatus = epicsEventWaitTimeout;
     dataLock.lock();
 	lock();
@@ -5143,6 +5152,10 @@ void ADPICam::piHandleNewImageTask(void)
         piAcquireStop();
         unlock();
     }
+    asynPrint(pasynUserSelf, ASYN_TRACE_FLOW,
+            "%s:%s End Handling new image.\n",
+            driverName,
+            __func__);
   }
 
 }
