@@ -1,0 +1,5 @@
+$(P)$(R)ReadoutPortCount
+$(P)$(R)CleanCycleCount
+$(P)$(R)CleanCycleHeight
+$(P)$(R)CleanSectionFinalHeight
+$(P)$(R)CleanSectionFinalHeightCount
