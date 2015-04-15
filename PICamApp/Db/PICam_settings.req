@@ -1,4 +1,30 @@
+# Shutter Timing
+$(P)$(R)ShutterTimingMode
+$(P)$(R)PIShutterOpenDelay
+$(P)$(R)PIShutterCloseDelay
+$(P)$(R)ShutterDelayResolution
+# Analog to Digital Conversion
+$(P)$(R)AdcAnalogGain
+$(P)$(R)AdcBitDepth
+$(P)$(R)AdcSpeed
+# Hardware IO
+$(P)$(R)OutputSignal
+$(P)$(R)TriggerDetermination
+$(P)$(R)TriggerResponse
+# Readout 
+$(P)$(R)Accumulations
+$(P)$(R)KineticsWindowHeight
+$(P)$(R)ReadoutControlMode
 $(P)$(R)ReadoutPortCount
+$(P)$(R)VerticalShiftRate
+# Data Acquisition Control
+$(P)$(R)FrameTrackingBitDepth
+$(P)$(R)TrackFrames
+$(P)$(R)TimeStampBitDepth
+$(P)$(R)TimeStampResolution
+$(P)$(R)TimeStamps
+$(P)$(R)PixelFormat
+# Sensor Cleaning
 $(P)$(R)CleanCycleCount
 $(P)$(R)CleanCycleHeight
 $(P)$(R)CleanSectionFinalHeight
