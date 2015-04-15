@@ -47,12 +47,20 @@ public:
             const PicamCameraID *id,
             PicamHandle device,
             PicamDiscoveryAction action);
+    static PicamError PIL_CALL piDependentRoisConstraintChanged(
+            PicamHandle camera,
+            PicamParameter parameter,
+            const PicamRoisConstraint* constraint);
     asynStatus piHandleAcquisitionUpdated(
             PicamHandle device,
             const PicamAvailableData *available,
             const PicamAcquisitionStatus *acqStatus);
     asynStatus piHandleCameraDiscovery(const PicamCameraID *id,
             PicamHandle device, PicamDiscoveryAction);
+    asynStatus piHandleDependentRoisConstraintChanged(
+            PicamHandle camera,
+            PicamParameter parameter,
+            const PicamRoisConstraint* constraint);
     asynStatus piHandleParameterRelevanceChanged(PicamHandle camera,
             PicamParameter parameter, pibln relevant);
     asynStatus piHandleParameterIntegerValueChanged(PicamHandle camera,
@@ -98,6 +106,7 @@ public:
             PicamParameter parameter,
             const PicamRois *value );
     void piHandleNewImageTask(void);
+    void piHandleReadOnlyParamsTask(void);
     void report(FILE *fp, int details);
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
@@ -549,6 +558,7 @@ private:
     epicsEventId  piHandleNewImageEvent;
     NDArray *pImage;
     int selectedCameraIndex;
+    int setParamsPassNumber;
     piint unavailableCamerasCount;
     const PicamCameraID *unavailableCameraIDs;
     std::unordered_map<PicamParameter, int> parameterExistsMap;
