@@ -1408,7 +1408,27 @@ asynStatus ADPICam::writeFloat64(asynUser *pasynUser, epicsFloat64 value) {
     // at a later stage
     setDoubleParam(function, value);
 
-    if (piLookupPICamParameter(function, picamParameter) ==
+    if (function == ADAcquireTime) {
+        piflt acqTimeMilli = value * 1000.0;   // PICAM uses milliseconds.
+        error = Picam_SetParameterFloatingPointValue(currentCameraHandle,
+                PicamParameter_ExposureTime, (piflt) acqTimeMilli);
+        if (error != PicamError_None) {
+            Picam_GetEnumerationString(PicamEnumeratedType_Error, error,
+                    &errorString);
+
+            asynPrint(pasynUser, ASYN_TRACE_ERROR,
+                    "%s:%s error writing Float64 value to ExposureTime %f\n"
+                    "Reason %s\n",
+                    driverName,
+                    functionName,
+                    value,
+                    errorString);
+            Picam_DestroyString(errorString);
+            return asynError;
+        }
+
+    }
+    else if (piLookupPICamParameter(function, picamParameter) ==
     		PicamError_None){
     	pibln isRelevant;
     	error = Picam_IsParameterRelevant(currentCameraHandle,
@@ -2766,6 +2786,9 @@ asynStatus ADPICam::piHandleParameterFloatingPointValueChanged(
     driverParameter = piLookupDriverParameter(parameter);
     //Handle the cases where simple translation between PICAM and areaDetector
     //is possible
+    if (driverParameter == ADAcquireTime) {
+        value = value/1000.0;
+    }
     if (driverParameter >= 0) {
         Picam_GetEnumerationString(PicamEnumeratedType_Parameter, parameter,
                 &parameterString);
@@ -5529,7 +5552,7 @@ void ADPICam::piHandleNewImageTask(void)
  * are seen.
  */
 void ADPICam::piHandleReadOnlyParamsTask(void){
-    double delayTimeout = 1.0;
+    double delayTimeout = 5.0;
     const PicamParameter *parameterList;
     piint parameterCount;
     pibln paramExists;
