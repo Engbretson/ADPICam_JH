@@ -114,7 +114,7 @@ cd ..
 "Setting 2-0 for areaDetector"
 & 'C:\Program Files (x86)\Git\bin\git.exe' checkout -b R2-0
 "Get ADPICAM"
-& 'C:\Program Files (x86)\Git\bin\git.exe' clone -b R2.0.1 --recursive https://github.com/JPHammonds/ADPICAM
+& 'C:\Program Files (x86)\Git\bin\git.exe' clone -b R2.0.2 --recursive https://github.com/JPHammonds/ADPICAM
 cd ..
 
 #Comment out unused synApps modules
@@ -145,7 +145,7 @@ sed.exe -e 's/asyn-4-21/asyn-4-26/' -i \PICAM\synApps_5_7\support\configure\RELE
 sed.exe -e 's/calc-3-2/calc-3-4-2/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/EPICS_BASE=\/APSshare\/epics\/base-3.14.12.3/EPICS_BASE=C:\/PICAM\/base-3.14.12.4/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/SUPPORT=\/APSshare\/epics\/synApps_5_7\/support/SUPPORT=C:\/PICAM\/synApps_5_7\/support/' -i \PICAM\synApps_5_7\support\configure\RELEASE
-sed.exe -e 's/areaDetector-2-2/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\configure\RELEASE
+sed.exe -e 's/areaDetector-1-9-1/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/autosave-5-1/autosave-5-5/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/busy-1-6/busy-1-6-1/' -i \PICAM\synApps_5_7\support\configure\RELEASE
 sed.exe -e 's/sscan-2-9/sscan-2-10/' -i \PICAM\synApps_5_7\support\configure\RELEASE
@@ -172,7 +172,7 @@ sed.exe -e 's/asyn-4-24/asyn-4-26/' -i \PICAM\synApps_5_7\support\areaDetector-2
 "Modify AreaDetector Template ConfigFile RELEASE_PATHS.local"
 sed.exe -e 's/\/corvette\/home\/epics\/devel/C:\/PICAM\/synApps_5_7\/support/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
 sed.exe -e 's/\/corvette\/usr\/local\/epics/C:\/PICAM/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
-sed.exe -e 's/areaDetector-2-1/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
+sed.exe -e 's/areaDetector-2-2/areaDetector-2-x-git/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
 sed.exe -e 's/base-3.14.12.3/base-3.14.12.4/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PATHS.local
 "Modify AreaDetector Template ConfigFile RELEASE_PRODS.local"
 sed.exe -e 's/autosave-5-4-2/autosave-5-5/' -i \PICAM\synApps_5_7\support\areaDetector-2-x-git\configure\RELEASE_PRODS.local
