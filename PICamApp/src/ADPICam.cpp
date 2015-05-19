@@ -910,11 +910,11 @@ ADPICam::ADPICam(const char *portName, int maxBuffers, size_t maxMemory,
     initializeDetector();
     piSetParameterValuesFromSelectedCamera();
     /* Create the thread to update read only parameters */
-    status = (epicsThreadCreate("piHandleReadOnlyParamsTaskC",
+    /* status = (epicsThreadCreate("piHandleReadOnlyParamsTaskC",
                                 epicsThreadPriorityMedium,
                                 epicsThreadGetStackSize(epicsThreadStackMedium),
                                 (EPICSTHREADFUNC)piHandleReadOnlyParamsTaskC,
-                                this) == NULL);
+                                this) == NULL);*/
 
     epicsAtExit(exitCallbackC, this);
 }
