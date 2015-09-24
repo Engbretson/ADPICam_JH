@@ -553,7 +553,7 @@ private:
     epicsMutex dataLock;
     NDDataType_t  imageDataType;
     size_t imageDims[2];
-    bool imageThreadKeepAlive = true;
+    bool imageThreadKeepAlive;
     epicsThreadId imageThreadId;
     epicsEventId  piHandleNewImageEvent;
     NDArray *pImage;
