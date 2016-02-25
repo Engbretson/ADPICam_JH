@@ -10,8 +10,11 @@ endif
 LIBRARY_IOC_WIN32 = ADPICam
 LIB_SRCS_WIN32 += ADPICam.cpp
 LIB_LIBS += Picam
+LIB_LIBS += MaddenPlugins.lib
 
 DBD += PICamSupport.dbd
+#DBD += IMMpluginSupport.dbd
+#DBD += immViewPluginSupport.dbd
 
 include $(ADCORE)/ADApp/commonLibraryMakefile
 

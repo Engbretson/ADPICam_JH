@@ -14,3 +14,11 @@ ftp://ftp.piacton.com/Public/Software/Official/PICam/
 And the Archives directory contains every other version released
 ftp://ftp.piacton.com/Public/Software/Official/PICam/Archives/
 
+NOTE: Current version
+
+===================================
+3.3.1.1510 - October 2015
+===================================
+
+On the assumption that anyone downloading the software from Princeton is going to be getting the latest version of the software, with the associated DLL's, so using legacy version may not always work
+

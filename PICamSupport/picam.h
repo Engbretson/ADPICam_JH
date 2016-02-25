@@ -115,9 +115,10 @@ typedef enum PicamError
     PicamError_AcquisitionNotInProgress            = 27,
     PicamError_TimeOutOccurred                     = 32,
     PicamError_AcquisitionUpdatedHandlerRegistered = 33,
+    PicamError_InvalidAcquisitionState             = 44,
     PicamError_NondestructiveReadoutEnabled        = 41
     /*------------------------------------------------------------------------*/
-} PicamError; /* (44) */
+} PicamError; /* (45) */
 /*----------------------------------------------------------------------------*/
 /* Library Version -----------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
@@ -144,83 +145,88 @@ typedef enum PicamEnumeratedType
     /*------------------------------------------------------------------------*/
     /* Function Return Error Codes -------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_Error                   =  1,
+    PicamEnumeratedType_Error                      =  1,
     /*------------------------------------------------------------------------*/
     /* General String Handling -----------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_EnumeratedType          = 29,
+    PicamEnumeratedType_EnumeratedType             = 29,
     /*------------------------------------------------------------------------*/
     /* Camera Identification -------------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_Model                   =  2,
-    PicamEnumeratedType_ComputerInterface       =  3,
+    PicamEnumeratedType_Model                      =  2,
+    PicamEnumeratedType_ComputerInterface          =  3,
     /*------------------------------------------------------------------------*/
     /* Camera Plug 'n Play Discovery -----------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_DiscoveryAction         = 26,
+    PicamEnumeratedType_DiscoveryAction            = 26,
     /*------------------------------------------------------------------------*/
     /* Camera Access ---------------------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_HandleType              = 27,
+    PicamEnumeratedType_HandleType                 = 27,
     /*------------------------------------------------------------------------*/
     /* Camera Parameters -----------------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_ValueType               =  4,
-    PicamEnumeratedType_ConstraintType          =  5,
-    PicamEnumeratedType_Parameter               =  6,
+    PicamEnumeratedType_ValueType                  =  4,
+    PicamEnumeratedType_ConstraintType             =  5,
+    PicamEnumeratedType_Parameter                  =  6,
     /*------------------------------------------------------------------------*/
     /* Camera Parameter Values - Enumerated Types ----------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_AdcAnalogGain           =  7,
-    PicamEnumeratedType_AdcQuality              =  8,
-    PicamEnumeratedType_CcdCharacteristicsMask  =  9,
-    PicamEnumeratedType_GateTrackingMask        = 36,
-    PicamEnumeratedType_GatingMode              = 34,
-    PicamEnumeratedType_GatingSpeed             = 38,
-    PicamEnumeratedType_EMIccdGainControlMode   = 42,
-    PicamEnumeratedType_IntensifierOptionsMask  = 35,
-    PicamEnumeratedType_IntensifierStatus       = 33,
-    PicamEnumeratedType_ModulationTrackingMask  = 41,
-    PicamEnumeratedType_OrientationMask         = 10,
-    PicamEnumeratedType_OutputSignal            = 11,
-    PicamEnumeratedType_PhosphorType            = 39,
-    PicamEnumeratedType_PhotocathodeSensitivity = 40,
-    PicamEnumeratedType_PhotonDetectionMode     = 43,
-    PicamEnumeratedType_PixelFormat             = 12,
-    PicamEnumeratedType_ReadoutControlMode      = 13,
-    PicamEnumeratedType_SensorTemperatureStatus = 14,
-    PicamEnumeratedType_SensorType              = 15,
-    PicamEnumeratedType_ShutterTimingMode       = 16,
-    PicamEnumeratedType_TimeStampsMask          = 17,
-    PicamEnumeratedType_TriggerCoupling         = 30,
-    PicamEnumeratedType_TriggerDetermination    = 18,
-    PicamEnumeratedType_TriggerResponse         = 19,
-    PicamEnumeratedType_TriggerSource           = 31,
-    PicamEnumeratedType_TriggerTermination      = 32,
+    PicamEnumeratedType_AdcAnalogGain              =  7,
+    PicamEnumeratedType_AdcQuality                 =  8,
+    PicamEnumeratedType_CcdCharacteristicsMask     =  9,
+    PicamEnumeratedType_GateTrackingMask           = 36,
+    PicamEnumeratedType_GatingMode                 = 34,
+    PicamEnumeratedType_GatingSpeed                = 38,
+    PicamEnumeratedType_EMIccdGainControlMode      = 42,
+    PicamEnumeratedType_IntensifierOptionsMask     = 35,
+    PicamEnumeratedType_IntensifierStatus          = 33,
+    PicamEnumeratedType_ModulationTrackingMask     = 41,
+    PicamEnumeratedType_OrientationMask            = 10,
+    PicamEnumeratedType_OutputSignal               = 11,
+    PicamEnumeratedType_PhosphorType               = 39,
+    PicamEnumeratedType_PhotocathodeSensitivity    = 40,
+    PicamEnumeratedType_PhotonDetectionMode        = 43,
+    PicamEnumeratedType_PixelFormat                = 12,
+    PicamEnumeratedType_ReadoutControlMode         = 13,
+    PicamEnumeratedType_SensorTemperatureStatus    = 14,
+    PicamEnumeratedType_SensorType                 = 15,
+    PicamEnumeratedType_ShutterTimingMode          = 16,
+    PicamEnumeratedType_TimeStampsMask             = 17,
+    PicamEnumeratedType_TriggerCoupling            = 30,
+    PicamEnumeratedType_TriggerDetermination       = 18,
+    PicamEnumeratedType_TriggerResponse            = 19,
+    PicamEnumeratedType_TriggerSource              = 31,
+    PicamEnumeratedType_TriggerTermination         = 32,
     /*------------------------------------------------------------------------*/
     /* Camera Parameter Information - Value Access ---------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_ValueAccess             = 20,
+    PicamEnumeratedType_ValueAccess                = 20,
     /*------------------------------------------------------------------------*/
     /* Camera Parameter Information - Dynamics -------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_DynamicsMask            = 28,
+    PicamEnumeratedType_DynamicsMask               = 28,
     /*------------------------------------------------------------------------*/
     /* Camera Parameter Constraints - Enumerated Types -----------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_ConstraintScope         = 21,
-    PicamEnumeratedType_ConstraintSeverity      = 22,
-    PicamEnumeratedType_ConstraintCategory      = 23,
+    PicamEnumeratedType_ConstraintScope            = 21,
+    PicamEnumeratedType_ConstraintSeverity         = 22,
+    PicamEnumeratedType_ConstraintCategory         = 23,
     /*------------------------------------------------------------------------*/
     /* Camera Parameter Constraints - Regions Of Interest --------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_RoisConstraintRulesMask = 24,
+    PicamEnumeratedType_RoisConstraintRulesMask    = 24,
     /*------------------------------------------------------------------------*/
     /* Acquisition Control ---------------------------------------------------*/
     /*------------------------------------------------------------------------*/
-    PicamEnumeratedType_AcquisitionErrorsMask   = 25
+    PicamEnumeratedType_AcquisitionErrorsMask      = 25,
     /*------------------------------------------------------------------------*/
-} PicamEnumeratedType; /* (37,44) */
+    /* Acquisition Notification ----------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+    PicamEnumeratedType_AcquisitionState           = 37,
+    PicamEnumeratedType_AcquisitionStateErrorsMask = 44
+    /*------------------------------------------------------------------------*/
+} PicamEnumeratedType; /* (45) */
 /*----------------------------------------------------------------------------*/
 PICAM_API Picam_GetEnumerationString(
     PicamEnumeratedType type,
@@ -243,6 +249,33 @@ PICAM_API Picam_GetEnumerationString(
 /*----------------------------------------------------------------------------*/
 typedef enum PicamModel
 {
+    /*------------------------------------------------------------------------*/
+    /* PI-MTE Series (1419) --------------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+    PicamModel_PIMteSeries              = 1400,
+    /* PI-MTE 1024 Series ----------------------------------------------------*/
+    PicamModel_PIMte1024Series          = 1401,
+    PicamModel_PIMte1024F               = 1402,
+    PicamModel_PIMte1024B               = 1403,
+    PicamModel_PIMte1024BR              = 1405,
+    PicamModel_PIMte1024BUV             = 1404,
+    /* PI-MTE 1024FT Series --------------------------------------------------*/
+    PicamModel_PIMte1024FTSeries        = 1406,
+    PicamModel_PIMte1024FT              = 1407,
+    PicamModel_PIMte1024BFT             = 1408,
+    /* PI-MTE 1300 Series ----------------------------------------------------*/
+    PicamModel_PIMte1300Series          = 1412,
+    PicamModel_PIMte1300B               = 1413,
+    PicamModel_PIMte1300R               = 1414,
+    PicamModel_PIMte1300BR              = 1415,
+    /* PI-MTE 2048 Series ----------------------------------------------------*/
+    PicamModel_PIMte2048Series          = 1416,
+    PicamModel_PIMte2048B               = 1417,
+    PicamModel_PIMte2048BR              = 1418,
+    /* PI-MTE 2K Series ------------------------------------------------------*/
+    PicamModel_PIMte2KSeries            = 1409,
+    PicamModel_PIMte2KB                 = 1410,
+    PicamModel_PIMte2KBUV               = 1411,
     /*------------------------------------------------------------------------*/
     /* PIXIS Series (76) -----------------------------------------------------*/
     /*------------------------------------------------------------------------*/
@@ -732,6 +765,8 @@ typedef enum PicamParameter
     PicamParameter_EnableModulationOutputSignal      = PI_V(Boolean,       Collection,  116),
     PicamParameter_ModulationOutputSignalFrequency   = PI_V(FloatingPoint, Range,       117),
     PicamParameter_ModulationOutputSignalAmplitude   = PI_V(FloatingPoint, Range,       120),
+    PicamParameter_AnticipateTrigger                 = PI_V(Boolean,       Collection,  131),
+    PicamParameter_DelayFromPreTrigger               = PI_V(FloatingPoint, Range,       132),
     /*-------------------------------------------------------------------------------------*/
     /* Readout Control --------------------------------------------------------------------*/
     /*-------------------------------------------------------------------------------------*/
@@ -817,6 +852,7 @@ typedef enum PicamParameter
     PicamParameter_CleanCycleHeight                  = PI_V(Integer,       Range,        21),
     PicamParameter_CleanBeforeExposure               = PI_V(Boolean,       Collection,   78),
     PicamParameter_CleanUntilTrigger                 = PI_V(Boolean,       Collection,   22),
+    PicamParameter_StopCleaningOnPreTrigger          = PI_V(Boolean,       Collection,  130),
     /*-------------------------------------------------------------------------------------*/
     /* Sensor Temperature -----------------------------------------------------------------*/
     /*-------------------------------------------------------------------------------------*/
@@ -827,7 +863,7 @@ typedef enum PicamParameter
     PicamParameter_EnableSensorWindowHeater          = PI_V(Boolean,       Collection,  127)
     /*-------------------------------------------------------------------------------------*/
 #undef PI_V
-} PicamParameter; /* (130) */
+} PicamParameter; /* (133) */
 /*----------------------------------------------------------------------------*/
 /* Camera Parameter Values - Integer -----------------------------------------*/
 /*----------------------------------------------------------------------------*/

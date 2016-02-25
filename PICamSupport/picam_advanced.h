@@ -511,7 +511,9 @@ PICAM_API PicamAdvanced_SetAcquisitionBuffer(
     PicamHandle                   device,
     const PicamAcquisitionBuffer* buffer );
 /*----------------------------------------------------------------------------*/
-/* Acquisition Setup - Notification ------------------------------------------*/
+/* Notification --------------------------------------------------------------*/
+/*----------------------------------------------------------------------------*/
+/* Notification - Acquisition ------------------------------------------------*/
 /*----------------------------------------------------------------------------*/
 typedef PicamError (PIL_CALL* PicamAcquisitionUpdatedCallback)(
     PicamHandle                   device,
@@ -525,6 +527,47 @@ PICAM_API PicamAdvanced_RegisterForAcquisitionUpdated(
 PICAM_API PicamAdvanced_UnregisterForAcquisitionUpdated(
     PicamHandle                     device,
     PicamAcquisitionUpdatedCallback updated );
+/*----------------------------------------------------------------------------*/
+/* Notification - Acquisition States -----------------------------------------*/
+/*----------------------------------------------------------------------------*/
+typedef enum PicamAcquisitionState
+{
+    PicamAcquisitionState_ReadoutStarted = 1,
+    PicamAcquisitionState_ReadoutEnded   = 2
+} PicamAcquisitionState; /* (3) */
+/*----------------------------------------------------------------------------*/
+typedef enum PicamAcquisitionStateErrorsMask
+{
+    PicamAcquisitionStateErrorsMask_None      = 0x0,
+    PicamAcquisitionStateErrorsMask_LostCount = 0x1
+} PicamAcquisitionStateErrorsMask; /* (0x2) */
+/*----------------------------------------------------------------------------*/
+PICAM_API PicamAdvanced_CanRegisterForAcquisitionStateUpdated(
+    PicamHandle           device,
+    PicamAcquisitionState state,
+    pibln*                detectable );
+/*----------------------------------------------------------------------------*/
+typedef struct PicamAcquisitionStateCounters
+{
+    pi64s readout_started_count;
+    pi64s readout_ended_count;
+} PicamAcquisitionStateCounters;
+/*----------------------------------------------------------------------------*/
+typedef PicamError (PIL_CALL* PicamAcquisitionStateUpdatedCallback)(
+    PicamHandle                          device,
+    PicamAcquisitionState                current,
+    const PicamAcquisitionStateCounters* counters,
+    PicamAcquisitionStateErrorsMask      errors );
+/*----------------------------------------------------------------------------*/
+PICAM_API PicamAdvanced_RegisterForAcquisitionStateUpdated(
+    PicamHandle                          device,
+    PicamAcquisitionState                state,
+    PicamAcquisitionStateUpdatedCallback updated );
+/*----------------------------------------------------------------------------*/
+PICAM_API PicamAdvanced_UnregisterForAcquisitionStateUpdated(
+    PicamHandle                          device,
+    PicamAcquisitionState                state,
+    PicamAcquisitionStateUpdatedCallback updated );
 /*----------------------------------------------------------------------------*/
 /* Acquisition Control -------------------------------------------------------*/
 /*----------------------------------------------------------------------------*/

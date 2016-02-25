@@ -4,6 +4,7 @@ include $(TOP)/configure/CONFIG
 DIRS := $(DIRS) configure
 DIRS := $(DIRS) PICamApp
 DIRS := $(DIRS) PICamSupport
+DIRS := $(DIRS) iocs
 
 PICamApp_DEPEND_DIRS += PICamSupport
 ifeq ($(BUILD_IOCS), YES)

@@ -1,1 +1,4 @@
 registrar("PICamRegister")
+registrar("NDFileIMMRegister")
+registrar("immViewPluginRegister")
+

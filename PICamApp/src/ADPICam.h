@@ -107,12 +107,13 @@ public:
             const PicamRois *value );
     void piHandleNewImageTask(void);
     void piHandleReadOnlyParamsTask(void);
+    void piHandlePeriodicScanTask(void);
     void report(FILE *fp, int details);
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
     virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
     virtual asynStatus readOctet(asynUser *pasynUser, char *value,
                                         size_t nChars, size_t *nActual,
-										int *eomReason);
+                                        int *eomReason);
 protected:
 
     int PICAM_VersionNumber;
@@ -553,10 +554,13 @@ private:
     epicsMutex dataLock;
     NDDataType_t  imageDataType;
     size_t imageDims[2];
+    size_t kineticsImageDims[2];
     bool imageThreadKeepAlive;
     epicsThreadId imageThreadId;
     epicsEventId  piHandleNewImageEvent;
+    epicsEventId  piHandleNewPeriodicEvent;
     NDArray *pImage;
+    NDArray *pKineticsImage;
     int selectedCameraIndex;
     int setParamsPassNumber;
     piint unavailableCamerasCount;
@@ -567,7 +571,11 @@ private:
     std::unordered_map<int, PicamParameter> picamParameterMap;
     asynStatus initializeDetector();
     asynStatus piAcquireStart();
+    asynStatus piAcquireStartOld();
+    asynStatus piAcquireStartNew();
     asynStatus piAcquireStop();
+    asynStatus piAcquireStopOld();
+    asynStatus piAcquireStopNew();
     asynStatus piClearParameterExists();
     asynStatus piClearParameterRelevance();
     asynStatus piCreateAndIndexADParam(const char * name,
@@ -632,6 +640,9 @@ private:
             PicamParameter picamParameter);
 
     static ADPICam *ADPICam_Instance;
+    epicsEventId startEventId;
+    epicsEventId stopEventId;
+
 };
 
 //_____________________________________________________________________________
